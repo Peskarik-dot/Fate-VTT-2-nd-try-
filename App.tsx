@@ -8,13 +8,15 @@ import {
   ChatMessage, 
   FateDiceResult, 
   DiceRoll 
-} from './types';
-import { CharacterSheet } from './components/CharacterSheet';
-import { Chat } from './components/Chat';
-import { Icons } from './constants';
-import { getGMAssistance } from './services/geminiService';
+} from './types.ts';
+import { CharacterSheet } from './components/CharacterSheet.tsx';
+import { Chat } from './components/Chat.tsx';
+import { Icons } from './constants.tsx';
+import { getGMAssistance } from './services/geminiService.ts';
 
 const LOCAL_STORAGE_KEY = 'fatenexus_state_v3';
+
+// ... (остальной код App.tsx остается прежним, только импорты выше изменены)
 
 const createDefaultCharacter = (ownerId: string, name: string): FateCharacter => ({
   id: Math.random().toString(36).substr(2, 9),
@@ -63,9 +65,13 @@ const App: React.FC = () => {
   useEffect(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (saved) {
-      const { user: u, room: r } = JSON.parse(saved);
-      setUser(u);
-      setRoom(r);
+      try {
+        const { user: u, room: r } = JSON.parse(saved);
+        setUser(u);
+        setRoom(r);
+      } catch (e) {
+        console.warn("Ошибка загрузки данных из localStorage", e);
+      }
     }
   }, []);
 
@@ -195,7 +201,7 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="text-[10px] font-bold text-[#3a4a63] uppercase ml-1">Ваше имя</label>
               <input type="text" placeholder="Имя игрока" id="userName" className="w-full bg-[#15181d] border border-[#3a4a63] rounded-lg p-3 text-white" />
-              <button onClick={() => createRoom((document.getElementById('userName') as HTMLInputElement).value || 'ГМ')} className="w-full btn-fate py-3 font-bold">Создать стол</button>
+              <button onClick={() => createRoom((document.getElementById('userName') as HTMLInputElement).value || 'ГМ')} className="w-full bg-gradient-to-br from-[#4aa3ff] to-[#2f6fa3] text-white py-3 rounded-lg font-bold hover:brightness-110 transition">Создать стол</button>
             </div>
             <div className="relative"><div className="absolute inset-0 flex items-center"><span className="w-full border-t border-[#3a4a63]"></span></div><div className="relative flex justify-center text-[10px] uppercase"><span className="bg-[#24272d] px-2 text-[#3a4a63]">ИЛИ</span></div></div>
             <div className="space-y-4">
