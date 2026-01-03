@@ -1,0 +1,8 @@
+{
+  "name": "Fate VTT",
+  "description": "An interactive virtual tabletop for the FATE RPG system featuring multi-character management, integrated dice rolling, and AI-powered game mastering assistance.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
