@@ -2,8 +2,8 @@
 import { GoogleGenAI } from "@google/genai";
 
 export const getGMAssistance = async (prompt: string, context: string) => {
-  // Создаем экземпляр прямо перед вызовом, чтобы всегда использовать актуальный ключ из окружения
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+  // Always use process.env.API_KEY directly as per guidelines.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   try {
     const response = await ai.models.generateContent({
@@ -16,6 +16,7 @@ export const getGMAssistance = async (prompt: string, context: string) => {
         Respond in Russian as the primary language of the user.`,
       },
     });
+    // Use .text property directly.
     return response.text || "Извините, я не смог обработать этот запрос.";
   } catch (error) {
     console.error("Gemini Error:", error);

@@ -4,12 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fate VTT - Интерактивный лист персонажа</title>
+    <title>Fate VTT - Интерактивный стол</title>
     
     <link rel="stylesheet" href="./styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Babel Standalone для компиляции TSX на лету -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="importmap">
@@ -24,39 +22,18 @@
   }
 }
 </script>
-
-    <script>
-        // Глобальный перехватчик ошибок для отладки на GitHub Pages
-        window.onerror = function(message, source, lineno, colno, error) {
-            console.error('Ошибка инициализации:', message, 'в', source);
-            const root = document.getElementById('root');
-            if (root && root.innerText.includes('Инициализация')) {
-                root.innerHTML = `<div class="flex flex-col items-center justify-center min-h-screen text-red-500 p-10 text-center">
-                    <h1 class="text-2xl font-bold mb-4">Ошибка загрузки</h1>
-                    <p class="text-sm opacity-80">${message}</p>
-                    <p class="text-xs mt-4 text-gray-500 italic">Проверьте консоль браузера (F12) для деталей</p>
-                    <button onclick="location.reload()" class="mt-6 px-4 py-2 bg-red-500/10 border border-red-500 rounded">Попробовать снова</button>
-                </div>`;
-            }
-        };
-    </script>
 </head>
 <body class="bg-[#15171b] text-[#e6e9ef] antialiased">
     <div id="root">
         <div class="flex items-center justify-center min-h-screen">
             <div class="text-center">
-                <div class="text-[#4aa3ff] animate-spin text-4xl mb-4">🎲</div>
-                <div class="text-[#3a4a63] animate-pulse font-bold tracking-widest uppercase text-sm">
-                    Инициализация стола...
-                </div>
+                <div class="text-[#4aa3ff] animate-bounce text-4xl mb-4">🎲</div>
+                <div class="text-[#3a4a63] font-bold tracking-widest uppercase text-sm">Загрузка интерфейса...</div>
             </div>
         </div>
     </div>
 
-    <!-- 
-      Важно: на GitHub Pages без сборки мы используем text/babel 
-      и указываем data-presets="react,typescript"
-    -->
+    <!-- Основной скрипт приложения -->
     <script type="text/babel" data-presets="react,typescript" data-type="module" src="./index.tsx"></script>
 </body>
 </html>
